@@ -20,47 +20,50 @@ class NewMovieFragment : Fragment() {
         MovieViewModel.Factory
     }
 
-    private lateinit var name: TextInputEditText
-    private lateinit var category: TextInputEditText
-    private lateinit var description: TextInputEditText
-    private lateinit var calification: TextInputEditText
-    private lateinit var actionSubmit: Button
+
+
+ private lateinit var binding: FragmentBillboardBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_movie, container, false)
+        binding = FragmentNewMovieBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
-        bind(view)
-        actionSubmit.setOnClickListener{
-            createMovie()
+        setViewModel()
+        observeStatus()
+    }
+
+
+    private fun  setViewModel(){
+        binding.viewmodel = viewModel
+    }
+
+    private fun observeStatus () {
+        viewModel.status.observe(viewLifecycleOwner){ status ->
+            when{
+                status.equals(MovieViewModel.MOVIE_CTREATTED) ->{
+                    Log.d("APP TAG", status)
+                    Log.d("APP TAG", viewModel.getMovies().toString())
+
+                    viewModel.clearStatus()
+                    viewModel.clearData()
+
+                    findNavController().popBackStack()
+                }
+                status.equals(MovieViewModel.WRONG_DATA) ->{
+                    Log.d("APP TAG", status)
+                    viewModel.clearStatus()
+
+                }
+            }
         }
     }
 
-    private fun bind(view: View){
-        name = view.findViewById(R.id.name_edit_text_value)
-        category = view.findViewById(R.id.category_edit_text_value)
-        description = view.findViewById(R.id.description_edit_text_value)
-        calification = view.findViewById(R.id.calification_edit_text_value)
-        actionSubmit = view.findViewById(R.id.action_submit)
-    }
-    private fun createMovie(){
-        val newMovie = MovieModel(
-            name.text.toString(),
-            category.text.toString(),
-            description.text.toString(),
-            calification.text.toString()
-        )
-        viewModel.addMovie(newMovie)
-
-        Log.d("APP TAG", viewModel.getMovies().toString())
-        findNavController().popBackStack()
-    }
 
 }
