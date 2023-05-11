@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.laboratorio05.R
 import com.example.laboratorio05.data.models.MovieModel
+import com.example.laboratorio05.databinding.FragmentNewMovieBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -22,7 +23,7 @@ class NewMovieFragment : Fragment() {
 
 
 
- private lateinit var binding: FragmentBillboardBinding
+ private lateinit var binding: FragmentNewMovieBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,9 +41,9 @@ class NewMovieFragment : Fragment() {
     }
 
 
-    private fun  setViewModel(){
-        binding.viewmodel = viewModel
-    }
+   private fun setViewModel(){
+       binding.viewmodel = viewModel
+   }
 
     private fun observeStatus () {
         viewModel.status.observe(viewLifecycleOwner){ status ->

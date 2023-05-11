@@ -8,15 +8,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import com.example.laboratorio05.R
+import com.example.laboratorio05.databinding.FragmentBillboardBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BillboardFragment : Fragment() {
-    /*
-    private lateinit var btnCreateNewMovie: FloatingActionButton
-    private lateinit var starWarsCv: CardView
-    private lateinit var harryPotterCv: CardView
 
-     */
 
     private lateinit var binding: FragmentBillboardBinding
 
@@ -24,26 +20,23 @@ class BillboardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
        binding = FragmentBillboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-/*
-        btnCreateNewMovie = view.findViewById(R.id.btnNavCreateNewMovie)
-        starWarsCv = view.findViewById(R.id.starWarsCardView)
-        harryPotterCv = view.findViewById(R.id.harryPotterCardView)
-*/
-        binding.starWarsCv.setOnClickListener {
+
+        binding.starWarsCardView.setOnClickListener {
             it.findNavController().navigate(R.id.action_billboardFragment_to_movieFragment)
         }
 
-        binding.harryPotterCv.setOnClickListener {
+        binding.harryPotterCardView.setOnClickListener {
             it.findNavController().navigate(R.id.action_billboardFragment_to_movieFragment)
         }
 
-        binding.btnCreateNewMovie.setOnClickListener {
+        binding.btnNavCreateNewMovie.setOnClickListener {
             it.findNavController().navigate(R.id.action_billboardFragment_to_newMovieFragment)
         }
 
